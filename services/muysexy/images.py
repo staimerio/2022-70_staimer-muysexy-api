@@ -50,11 +50,12 @@ class MuySexy(object):
     def get_data_post(self, page):
         _images = []
         _post = page.find(id="mvp-content-main")
-        _images_raw = _post.find_all(class_="jetpack-lazy-image", src=True)
+        _images_raw = _post.find_all("img", src=True)
         for _image_raw in _images_raw:
-            if "grupo" in _image_raw['src']:
+            _url=_image_raw.attrs['data-lazy-src'] if 'data-lazy-src' in _image_raw.attrs else _image_raw['src']
+            if "grupo" in _url:
                 continue
-            _images.append(_image_raw['src'])
+            _images.append(_url)
         
         _title = page.find("h1").text
         _cover = _images[-1]
