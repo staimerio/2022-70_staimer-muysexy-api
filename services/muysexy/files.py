@@ -202,15 +202,14 @@ def add_files_post(
     page=1,
     credential=None,
 ):
-    # _created_posts = upload_items(
-    #     limit,
-    #     headers,
-    #     limit_publish,
-    #     page=page,
-    #     description_upload=description_upload,
-    #     credential=credential,
-    # )
-    _created_posts=[]
+    _created_posts = upload_items(
+        limit,
+        headers,
+        limit_publish,
+        page=page,
+        description_upload=description_upload,
+        credential=credential,
+    )
     print("*********len(_created_posts)*********:" + str(len(_created_posts)))
     """Check if almost one item was published"""
     if(len(_created_posts) == 0):
