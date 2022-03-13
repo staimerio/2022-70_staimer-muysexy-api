@@ -1,12 +1,6 @@
 # Retic
 from retic import App as app
 
-"""Define all other apps"""
-BACKEND_MUYSEXY = {
-    u"base_url": app.config.get('APP_BACKEND_MUYSEXY'),
-    u"latest": "/images/latest",
-    u"posts": "/images/posts",
-}
 
 BACKEND_WORDPRESS = {
     u"base_url": app.config.get('APP_BACKEND_WORDPRESS'),
@@ -24,7 +18,6 @@ BACKEND_ZIP = {
 }
 
 APP_BACKEND = {
-    u"muysexy": BACKEND_MUYSEXY,
     u"wordpress": BACKEND_WORDPRESS,
     u"images": BACKEND_IMAGES,
     u"zip": BACKEND_ZIP,

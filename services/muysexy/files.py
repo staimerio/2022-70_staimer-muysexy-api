@@ -28,8 +28,6 @@ import services.general.constants as constants
 
 
 WEBSITE_POST_TYPE = app.config.get('WEBSITE_POST_TYPE')
-URL_MUYSEXY_POST = app.apps['backend']['muysexy']['base_url'] + \
-    app.apps['backend']['muysexy']['posts']
 URL_SENDFILES_WEB = app.config.get('URL_SENDFILES_WEB')
 MUYSEXY_URL_API_BASE = app.config.get('MUYSEXY_URL_API_BASE')
 
