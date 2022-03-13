@@ -57,7 +57,7 @@ class MuySexy(object):
             if "grupo" in _url:
                 continue
             _images.append(_url)
-            if ".gif" not in _url:
+            if ".gif" not in _url or ".webp" not in _url:
                 _cover=_url
         
         _title = page.find("h1").text
