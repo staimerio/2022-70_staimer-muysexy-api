@@ -51,14 +51,16 @@ class MuySexy(object):
         _images = []
         _post = page.find(id="mvp-content-main")
         _images_raw = _post.find_all("img", src=True)
+        _cover = ""
         for _image_raw in _images_raw:
             _url=_image_raw.attrs['data-lazy-src'] if 'data-lazy-src' in _image_raw.attrs else _image_raw['src']
             if "grupo" in _url:
                 continue
             _images.append(_url)
+            if ".gif" not in _url:
+                _cover=_url
         
         _title = page.find("h1").text
-        _cover = _images[-1]
 
         _genres_box=page.find(class_="mvp-post-tags")            
         
