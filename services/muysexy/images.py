@@ -21,6 +21,7 @@ from retic.services.general.urls import slugify
 
 # Constants
 
+
 class MuySexy(object):
 
     def __init__(self):
@@ -53,24 +54,26 @@ class MuySexy(object):
         _images_raw = _post.find_all("img", src=True)
         _cover = ""
         for _image_raw in _images_raw:
-            _url=_image_raw.attrs['data-lazy-src'] if 'data-lazy-src' in _image_raw.attrs else _image_raw['src']
-            if "grupo" in _url:
+            _url = _image_raw.attrs['data-lazy-src'] if 'data-lazy-src' in _image_raw.attrs else _image_raw['src']
+            if "grupo" in _url or "mega" in _url:
                 continue
             _images.append(_url)
             if ".gif" not in _url and ".webp" not in _url:
-                _cover=_url
-        
+                _cover = _url
+
         _title = page.find("h1").text
 
-        _genres_box=page.find(class_="mvp-post-tags")            
-        
-        _genres = [_genre.text.strip() for _genre in _genres_box.find_all("a", href=True)]
-        
+        _genres_box = page.find(class_="mvp-post-tags")
+
+        _genres = [_genre.text.strip()
+                   for _genre in _genres_box.find_all("a", href=True)]
+        _categories = ['Only Fans']
         return {
             'title': _title,
             'cover': _cover,
             'genres': _genres,
-            "images": _images
+            "images": _images,
+            'categories': _categories,
         }
 
 
