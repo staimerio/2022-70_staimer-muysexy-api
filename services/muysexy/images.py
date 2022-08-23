@@ -53,9 +53,16 @@ class MuySexy(object):
         _post = page.find(id="mvp-content-main")
         _images_raw = _post.find_all("img", src=True)
         _cover = ""
-        for _image_raw in _images_raw:
+        for _image_raw in _images_raw:        
             _url = _image_raw.attrs['data-lazy-src'] if 'data-lazy-src' in _image_raw.attrs else _image_raw['src']
-            if "grupo" in _url or "mega" in _url:
+            if "grupo" in _url or "mega" in _url or ".svg" in _url or "imgur.com" in _url:
+                continue
+
+            _exists=False
+            for image in _images:
+                if image==_url:
+                    _exists=True
+            if _exists:
                 continue
             _images.append(_url)
             if ".gif" not in _url and ".webp" not in _url:
