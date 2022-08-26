@@ -11,6 +11,8 @@ from time import sleep
 
 # bs4
 from bs4 import BeautifulSoup
+# Base64
+import base64
 
 # Services
 from retic.services.responses import success_response, error_response
@@ -35,6 +37,7 @@ class MuySexy(object):
         _soup = BeautifulSoup(r_download_page.content, 'html.parser')
         """Get info about the item"""
         _info = self.get_data_post(_soup)
+        _links = self.get_data_links(_soup)
         if not _info:
             """Return error if data is invalid"""
             return error_response(
@@ -42,7 +45,8 @@ class MuySexy(object):
             )
         """Set the data response"""
         _data_response = {
-            **_info
+            **_info,
+            **_links,
         }
         return success_response(
             data=_data_response
@@ -53,15 +57,15 @@ class MuySexy(object):
         _post = page.find(id="mvp-content-main")
         _images_raw = _post.find_all("img", src=True)
         _cover = ""
-        for _image_raw in _images_raw:        
+        for _image_raw in _images_raw:
             _url = _image_raw.attrs['data-lazy-src'] if 'data-lazy-src' in _image_raw.attrs else _image_raw['src']
             if "grupo" in _url or "mega" in _url or ".svg" in _url or "imgur.com" in _url:
                 continue
 
-            _exists=False
+            _exists = False
             for image in _images:
-                if image==_url:
-                    _exists=True
+                if image == _url:
+                    _exists = True
             if _exists:
                 continue
             _images.append(_url)
@@ -81,6 +85,17 @@ class MuySexy(object):
             'genres': _genres,
             "images": _images,
             'categories': _categories,
+        }
+
+    def get_data_links(self, _soup):
+        _links = []
+        _links_raw = _soup.find_all(class_="download-link", href=True)
+        for _link_raw in _links_raw:
+            _blink = _link_raw.attrs['href'].split('api/?urlb64=')[-1]
+            _links.append(base64.b64decode(_blink).decode('utf-8'))
+
+        return {
+            'links': _links,
         }
 
 
